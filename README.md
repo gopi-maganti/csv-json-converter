@@ -7,44 +7,83 @@ A simple and lightweight Python utility to convert data between **CSV** and **JS
 ## 📁 Project Structure
 
 ```bash
-csv-json-converter/
-├── data/
-│ ├── sample.csv # Input CSV file
-│ └── sample.json # Output JSON file
-├── src/
-│ └── converter.py # Core functions for CSV ↔ JSON conversion
-├── tests/
-│ └── converter.py # Tests the functions for CSV ↔ JSON conversion
-├── requirements.txt # Contains python packages and versions necessary to run the code
-├── main.py # Main script to run conversions
-└── README.md # Project documentation
+CSV-JSON-CONVERTER/
+│
+├── data/ # Sample input and output files
+│ ├── customers.csv
+│ ├── customers.json
+│ └── organizations.json
+│
+├── src/ # Logic for conversion
+│ └── converter.py
+│
+├── tests/ # Unit tests for conversion functions
+│ ├── test_converter.py
+│ └── test_utils.py
+│
+├── utils.py # Reusable CSV/JSON read/write helpers
+├── main.py # CLI functions to trigger conversions
+├── README.md
+└── .gitignore
 ```
 
 ---
 
-## 🚀 How to Run
+## 📦 Requirements
 
-1. Place your CSV file in the `data/` folder (e.g., `sample.csv`).
-2. Run the script:
+- Python 3.7+
+- No external dependencies (uses built-in `csv`, `json`, and `typing`)
+
+To set up a virtual environment:
 
 ```bash
-python main.py
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
-3. You’ll get:
+### 🚀 How to Use
 
-   data/sample.json (converted from CSV)
+Convert CSV to JSON
 
-   data/sample_converted.csv (converted back from JSON)
-
-### 🧪 Example CSV Format
-
-```csv
-Name,Department,Location
-Alice,Engineering,New York
-Bob,Marketing,San Francisco
-Charlie,Design,Remote
+```bash
+python main.py csv-to-json data/customers.csv data/customers.json
 ```
+
+Convert JSON to CSV
+
+```bash
+python main.py json-to-csv data/customers.json data/customers.csv
+```
+
+Note: You can also import and call convert_csv_to_json() or convert_json_to_csv() from main.py in your own scripts.
+
+### 🧪 Running Tests
+
+Tests are written using pytest.
+To run all tests:
+
+```bash
+
+pytest tests/
+```
+
+### 🔧 Core Functions
+
+From utils.py
+
+- read_csv(file_path: str) -> List[Dict[str, Any]]
+
+- write_csv(data: List[Dict[str, Any]], file_path: str) -> None
+
+- read_json(file_path: str) -> List[Dict[str, Any]]
+
+- write_json(data: List[Dict[str, Any]], file_path: str) -> None
+
+From main.py
+
+- convert_csv_to_json(csv_file_path: str, json_file_path: str) -> None
+
+- convert_json_to_csv(json_file_path: str, csv_file_path: str) -> None
 
 ### ✨ Features
 
@@ -73,8 +112,6 @@ Charlie,Design,Remote
 - Support nested JSON structures
 
 - Add logging and error handling
-
-- Include unit tests using unittest or pytest
 
 ### 📜 License
 
